@@ -21,14 +21,34 @@ export class TranscriptService {
       // Extract media type and platform from conversation data
       const mediaType = callInfo.media_type || data.media_type || 'unknown';
       const platform = callInfo.platform || data.platform || 'unknown';
+      const title = callInfo.title || data.title || 'unknown';
 
       // Sanitize media type for filename (lowercase, no spaces or special chars)
-      const mediaTypeForFilename = mediaType.toLowerCase().replace(/[^a-z0-9]/g, '_');
+      const titleForFilename = title.toLowerCase().replace(/[^a-z0-9]/g, '_');
 
-      const fileName = `transcript_${mediaTypeForFilename}_${callId}_${Date.now()}.txt`;
+      function formatTimestamp(isoTimestamp) {
+        const date = new Date(isoTimestamp);
+
+        // Pad single-digit values with a leading zero (e.g., 5 → "05")
+        const pad = (n) => String(n).padStart(2, "0");
+
+        const month  = pad(date.getMonth() + 1); // getMonth() is 0-indexed
+        const day    = pad(date.getDate());
+        const year   = date.getFullYear();
+        const hour   = pad(date.getHours());
+        const minute = pad(date.getMinutes());
+        const second = pad(date.getSeconds());
+
+        return `${month}.${day}.${year}-${hour}.${minute}.${second}`;
+      }
+
+      const dateForFilename = formatTimestamp(callInfo.created_at)
+
+      const fileName = `transcript_${title}_${dateForFilename}.txt`;
 
       let content = `=== CONVERSATION TRANSCRIPT ===\n`;
       content += `Conversation ID: ${callId}\n`;
+      content += `Title: ${title}\n`;
       content += `Date: ${callInfo.created_at}\n`;
       content += `Duration: ${callInfo.duration || 'N/A'} seconds\n`;
       content += `Media Type: ${mediaType}\n`;
