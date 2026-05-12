@@ -16,7 +16,6 @@ data/*
 !data/.gitkeep
 !data/salesforce/
 !data/salesforce/*.csv
-!data/transcript_salesforce_mapping.csv
 # Output files (generated, don't need to be in git)
 data/salesforce_import_ready.csv
 data/last_generation.json
