@@ -1,6 +1,8 @@
-# Salesloft Call Transcripts to Google Drive
+# SalesLoft Call Transcripts 
 
-This script pulls call transcript TEXT from Salesloft via their API and uploads them to Google Drive.
+This script has been forked and modified from [caserta31/gyde-transcripts](https://github.com/caserta31/gyde-transcripts) for use with the Progress User Research Copilot Agent. It pulls call transcript TEXT files from Salesloft via their API, saves them to a local folder, then copies them into a synced OneDrive folder (that the User Research Agent is watching) and deletes the local copy. 
+
+Originally, this program also handled upload to Google Drive. I am not using those aspects of the script, but I have retained them here for reference / in case they're needed in the future. 
 
 ## Setup Instructions
 
@@ -129,7 +131,7 @@ Once the transcripts are downloaded to your computer, you can:
 - **AI Transcript Detection**: Automatically checks for `transcription_id` and skips calls without AI transcripts
 - **Complete Transcripts**: Handles pagination automatically to fetch ALL sentences (no truncation)
 - **Efficient**: Skips calls early if no AI transcript exists, saving ~80% of API calls
-- **Google Drive Upload**: Files are saved locally first, then uploaded to Google Drive
+- **Files**: The `batch-and-copy.sh` script calls the batch task, then copies the downloaded files to a synced OneDrive folder and deletes the local version.
 - Files are plain text (.txt format)
 - If a transcript fails to download, the script continues with the next one
 
