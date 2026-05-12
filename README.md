@@ -44,6 +44,11 @@ npm run clean  # Resets the tracker (backs up old data)
 npm run batch  # Re-download all transcripts
 ```
 
+**Option D: Kathryn's Custom Script**
+```bash
+./batch-and-copy.sh  # Runs batch mode, copies files to OneDrive, deletes locally saved files. Kathryn runs daily using the following cron job: 00 10 * * * /Users/nanz/salesloft-transcripts/scripts/batch-and-copy.sh >> ~/cron.log 2>&1
+```
+
 **📖 New to this?**
 - **[HOW_IT_WORKS.md](./HOW_IT_WORKS.md)** - **START HERE!** Explains the tracking system & when to use each command
 - **[WHEN_TO_RUN.md](./docs/WHEN_TO_RUN.md)** - Quick reference guide
