@@ -1,5 +1,10 @@
 import axios from 'axios';
 import fs from 'fs';
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const debugPath = path.join(__dirname, '../../data/debug_response.json');
 
 const SALESLOFT_API_URL = 'https://api.salesloft.com/v2';
 
@@ -66,7 +71,7 @@ export class SalesloftClient {
       console.log(`\nFound ${allRecords.length} total conversation records (pages ${startPage}-${currentPage - 1})`);
 
       // Save raw response for debugging (just first page)
-      fs.writeFileSync('./data/debug_response.json', JSON.stringify({ data: allRecords.slice(0, 10) }, null, 2));
+      fs.writeFileSync(debugPath, JSON.stringify({ data: allRecords.slice(0, 10) }, null, 2));
       console.log('Sample API response saved to data/debug_response.json');
 
       return { records: allRecords, nextPage: currentPage };
